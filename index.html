@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rose Bakes — Homemade Cakes by Smila Manoj</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --rose: #f4a7b9;
+      --rose-deep: #e07a96;
+      --rose-light: #fce4ec;
+      --blush: #fff0f5;
+      --cream: #fffaf7;
+      --gold: #d4a843;
+      --gold-light: #f5e6c0;
+      --sage: #a8c5a0;
+      --text-dark: #3a2a2e;
+      --text-mid: #7a5c65;
+      --text-light: #b89aa0;
+      --white: #ffffff;
+      --shadow-soft: 0 8px 32px rgba(244,167,185,0.18);
+      --shadow-card: 0 4px 20px rgba(58,42,46,0.10);
+      --radius: 24px;
+      --radius-sm: 14px;
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+    body.no-scroll { overflow: hidden; }
+    button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; outline: none; font-family: inherit; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--blush); }
+    ::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 10px; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(255,250,247,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(244,167,185,0.15);
+      transition: all 0.3s ease;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-logo-img {
+      width: 48px; height: 48px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--rose);
+    }
+    .nav-logo-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem; color: var(--rose-deep);
+      line-height: 1;
+    }
+    .nav-logo-sub { font-size: 0.65rem; color: var(--text-light); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--text-mid);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--rose); border-radius: 2px;
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .nav-links a:hover { color: var(--rose-deep); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cart {
+      position: relative; background: var(--rose); color: white;
+      border-radius: 50px; padding: 10px 22px;
+      font-size: 0.9rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.2s; box-shadow: 0 4px 12px rgba(224,122,150,0.35);
+    }
+    .nav-cart:hover { background: var(--rose-deep); transform: translateY(-2px); }
+    .cart-badge {
+      position: absolute; top: -6px; right: -6px;
+      background: var(--gold); color: white; border-radius: 50%;
+      width: 20px; height: 20px; font-size: 0.7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      display: none;
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--rose-deep); border-radius: 2px; transition: all 0.3s; }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fff0f5 0%, #fff8f2 50%, #fce9f1 100%);
+      display: flex; align-items: center;
+      padding: 100px 48px 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,167,185,0.15) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-bg-circle:nth-child(1) { width: 500px; height: 500px; top: -100px; right: -100px; }
+    .hero-bg-circle:nth-child(2) { width: 300px; height: 300px; bottom: 50px; left: -50px; animation-delay: 2s; }
+    .hero-bg-circle:nth-child(3) { width: 200px; height: 200px; top: 200px; left: 30%; animation-delay: 4s; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+    .hero-content {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold-light); color: var(--gold);
+      padding: 6px 16px; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.15; color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+    .hero-title em { color: var(--rose-deep); font-style: italic; }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--text-mid);
+      line-height: 1.75; margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: white; padding: 14px 32px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600;
+      box-shadow: 0 6px 20px rgba(224,122,150,0.4);
+      transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(224,122,150,0.5); }
+    .btn-secondary {
+      background: transparent; color: var(--rose-deep);
+      padding: 14px 32px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600;
+      border: 2px solid var(--rose);
+      transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { background: var(--rose-light); transform: translateY(-3px); }
+
+    .hero-image-wrap {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-image-blob {
+      width: 420px; height: 420px;
+      background: linear-gradient(135deg, var(--rose-light) 0%, var(--gold-light) 100%);
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: blob 8s ease-in-out infinite;
+      position: relative; overflow: hidden;
+    }
+    @keyframes blob {
+      0%,100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; }
+      33% { border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%; }
+      66% { border-radius: 40% 60% 60% 40% / 40% 60% 40% 60%; }
+    }
+    .hero-image-blob img {
+      width: 340px; height: 340px; object-fit: cover;
+      border-radius: 50%; border: 6px solid white;
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-float-badge {
+      position: absolute;
+      background: white; border-radius: var(--radius-sm);
+      padding: 12px 16px; box-shadow: var(--shadow-card);
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem;
+    }
+    .hero-float-badge.top-right { top: 20px; right: -20px; }
+    .hero-float-badge.bottom-left { bottom: 30px; left: -30px; }
+    .float-icon { width: 36px; height: 36px; background: var(--rose-light); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; color: var(--rose-deep); font-size: 1.1rem; }
+    .float-label { font-weight: 600; color: var(--text-dark); }
+    .float-sub { font-size: 0.75rem; color: var(--text-light); }
+
+    /* ===== SECTION SHARED ===== */
+    section { padding: 90px 48px; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-tag {
+      display: inline-block; background: var(--rose-light); color: var(--rose-deep);
+      padding: 6px 18px; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--text-dark); margin-bottom: 16px;
+    }
+    .section-sub { font-size: 1rem; color: var(--text-mid); max-width: 550px; margin: 0 auto; line-height: 1.7; }
+
+    /* ===== CAKES GRID ===== */
+    #cakes { background: var(--blush); }
+    .cakes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px; max-width: 1200px; margin: 0 auto;
+    }
+    .cake-card {
+      background: white; border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow-card);
+      transition: all 0.3s; cursor: pointer;
+    }
+    .cake-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(58,42,46,0.15); }
+    .cake-img-wrap {
+      position: relative; height: 220px; overflow: hidden;
+    }
+    .cake-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .cake-card:hover .cake-img-wrap img { transform: scale(1.08); }
+    .cake-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--rose); color: white;
+      padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600;
+    }
+    .cake-info { padding: 20px 22px 22px; }
+    .cake-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 8px; }
+    .cake-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 16px; }
+    .cake-price { font-size: 1.1rem; font-weight: 700; color: var(--rose-deep); margin-bottom: 16px; }
+    .cake-price span { font-size: 0.8rem; font-weight: 400; color: var(--text-light); }
+    .btn-add-cart {
+      width: 100%; background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: white; padding: 12px; border-radius: var(--radius-sm);
+      font-weight: 600; font-size: 0.9rem;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-add-cart:hover { opacity: 0.9; transform: scale(0.98); }
+
+    /* ===== MAKE YOUR OWN CAKE ===== */
+    #make-cake {
+      background: linear-gradient(135deg, #fff5f8 0%, #fffaf0 100%);
+      position: relative; overflow: hidden;
+    }
+    .make-cake-banner {
+      max-width: 1200px; margin: 0 auto;
+      background: linear-gradient(135deg, var(--rose-deep) 0%, #c4607a 50%, var(--gold) 100%);
+      border-radius: 28px; padding: 40px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 28px; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(224,122,150,0.35);
+    }
+    .make-cake-banner::before {
+      content: '🎂'; position: absolute; right: 40px; top: -20px;
+      font-size: 6rem; opacity: 0.12; transform: rotate(15deg);
+      pointer-events: none;
+    }
+    .make-cake-banner::after {
+      content: '✨'; position: absolute; left: 40%; bottom: -10px;
+      font-size: 4rem; opacity: 0.1; pointer-events: none;
+    }
+    .make-cake-text { color: white; flex: 1; min-width: 0; }
+    .make-cake-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      margin-bottom: 10px; line-height: 1.25;
+    }
+    .make-cake-text p { font-size: 0.92rem; opacity: 0.85; line-height: 1.65; margin-bottom: 20px; }
+    .make-cake-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(255,255,255,0.2); color: white;
+      padding: 5px 12px; border-radius: 50px; font-size: 0.78rem; font-weight: 500;
+      backdrop-filter: blur(4px); white-space: nowrap;
+    }
+    .btn-make-cake {
+      background: white; color: var(--rose-deep);
+      padding: 14px 28px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: all 0.3s; white-space: nowrap; flex-shrink: 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .btn-make-cake:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,0.2); }
+
+    /* ===== BOOKING ===== */
+    #booking { background: var(--cream); }
+    .booking-wrap { max-width: 860px; margin: 0 auto; }
+    .booking-card {
+      background: white; border-radius: var(--radius); padding: 48px;
+      box-shadow: var(--shadow-soft);
+    }
+    .booking-steps {
+      display: flex; gap: 0; margin-bottom: 40px;
+      border-radius: 50px; overflow: hidden;
+      border: 2px solid var(--rose-light);
+    }
+    .booking-step {
+      flex: 1; text-align: center; padding: 12px 16px;
+      font-size: 0.85rem; font-weight: 600; color: var(--text-light);
+      cursor: pointer; transition: all 0.2s;
+      border-right: 1px solid var(--rose-light);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .booking-step:last-child { border-right: none; }
+    .booking-step.active { background: var(--rose); color: white; }
+    .booking-step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    /* Booking form */
+    .form-group { margin-bottom: 22px; }
+    .form-label { display: block; font-size: 0.88rem; font-weight: 600; color: var(--text-mid); margin-bottom: 8px; }
+    .form-input {
+      width: 100%; padding: 13px 16px;
+      border: 2px solid var(--rose-light); border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 0.95rem; color: var(--text-dark);
+      background: var(--blush); transition: border 0.2s;
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--rose); background: white; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .weight-selector {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .weight-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--rose-light); color: var(--rose-deep);
+      font-size: 1.2rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .weight-btn:hover { background: var(--rose); color: white; }
+    .weight-display {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--rose-deep);
+      min-width: 80px; text-align: center;
+    }
+    .weight-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .weight-chip {
+      padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+      border: 2px solid var(--rose-light); color: var(--text-mid);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .weight-chip.active { background: var(--rose); color: white; border-color: var(--rose); }
+
+    .cake-writing-input {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+    }
+
+    .date-warning {
+      background: #fff3cd; border: 1.5px solid #f59e0b;
+      color: #92400e; border-radius: var(--radius-sm);
+      padding: 12px 16px; font-size: 0.85rem;
+      display: none; margin-top: 8px;
+      align-items: flex-start; gap: 10px;
+    }
+    .date-warning.show { display: flex; }
+
+    .delivery-section { margin-top: 8px; }
+    .delivery-note {
+      background: var(--rose-light); color: var(--rose-deep);
+      padding: 10px 14px; border-radius: var(--radius-sm);
+      font-size: 0.82rem; margin-top: 10px; display: none;
+    }
+    .delivery-note.show { display: block; }
+
+    .checkbox-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .checkbox-wrap input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--rose); }
+
+    .booking-channels {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;
+    }
+    .channel-btn {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 16px; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 0.95rem; transition: all 0.2s;
+    }
+    .channel-btn.whatsapp {
+      background: #25D366; color: white;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+    }
+    .channel-btn.instagram {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white; box-shadow: 0 4px 16px rgba(220,39,67,0.35);
+    }
+    .channel-btn:hover { transform: translateY(-3px); opacity: 0.92; }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--blush); }
+    .about-wrap {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 72px; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-frame {
+      width: 340px; height: 400px;
+      background: linear-gradient(135deg, var(--rose-light), var(--gold-light));
+      border-radius: 40% 60% 60% 40% / 50% 40% 60% 50%;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .about-img-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .about-deco {
+      position: absolute; bottom: -20px; right: -20px;
+      background: white; padding: 18px 24px;
+      border-radius: 20px; box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+    .about-deco-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--rose-deep); font-weight: 700; }
+    .about-deco-label { font-size: 0.75rem; color: var(--text-light); letter-spacing: 1px; }
+    .about-text h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 20px; }
+    .about-text h2 em { color: var(--rose-deep); }
+    .about-text p { font-size: 1rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 16px; }
+    .about-signature { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: var(--rose-deep); margin-top: 20px; }
+
+    /* ===== ENQUIRY ===== */
+    #enquiry { background: var(--cream); }
+    .enquiry-wrap { max-width: 680px; margin: 0 auto; }
+    .enquiry-card {
+      background: white; border-radius: var(--radius); padding: 48px;
+      box-shadow: var(--shadow-soft);
+    }
+    .alert { padding: 14px 18px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-bottom: 16px; display: none; }
+    .alert.success { background: #d1fae5; color: #065f46; display: block; }
+    .alert.error { background: #fee2e2; color: #991b1b; display: block; }
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: white; padding: 15px; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 700;
+      box-shadow: 0 6px 20px rgba(224,122,150,0.35);
+      transition: all 0.3s;
+    }
+    .btn-submit:hover { opacity: 0.92; transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--text-dark); color: white;
+      padding: 60px 48px 30px;
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 40px;
+    }
+    .footer-brand { }
+    .footer-logo { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--rose); margin-bottom: 14px; }
+    .footer-desc { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1rem; transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--rose); transform: translateY(-3px); }
+    .footer-heading { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 18px; color: var(--rose-light); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: rgba(255,255,255,0.6); font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--rose); }
+    .footer-contact-item { display: flex; gap: 10px; margin-bottom: 12px; }
+    .footer-contact-item i { color: var(--rose); width: 16px; margin-top: 2px; }
+    .footer-contact-item span { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.82rem; color: rgba(255,255,255,0.4);
+    }
+
+    /* ===== CART SIDEBAR ===== */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+      z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      touch-action: none;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: auto; }
+    .cart-sidebar {
+      position: fixed; top: 0; right: -460px; width: 440px; height: 100vh;
+      background: white; z-index: 2001; transition: right 0.35s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+      touch-action: none;
+    }
+    .cart-sidebar.open { right: 0; }
+    .cart-header {
+      padding: 20px 28px; border-bottom: 1px solid var(--rose-light);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .cart-header-top { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .cart-header h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+    .cart-close { width: 36px; height: 36px; background: var(--rose-light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; color: var(--rose-deep); font-size: 1rem; }
+    .cart-back-home {
+      width: 100%; display: flex; align-items: center; gap: 8px;
+      color: var(--text-light); font-size: 0.82rem; font-weight: 500;
+      padding: 7px 12px; border-radius: 50px;
+      border: 1.5px solid var(--rose-light); background: var(--blush);
+      transition: all 0.2s; cursor: pointer;
+    }
+    .cart-back-home:hover { color: var(--rose-deep); border-color: var(--rose); background: var(--rose-light); }
+    .cart-items {
+      flex: 1; overflow-y: auto; padding: 20px 28px;
+      overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
+    .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-light); }
+    .cart-empty i { font-size: 3rem; margin-bottom: 14px; color: var(--rose-light); }
+    .cart-item {
+      display: flex; gap: 14px; padding: 16px 0;
+      border-bottom: 1px solid var(--blush);
+    }
+    .cart-item-img { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+    .cart-item-detail { font-size: 0.78rem; color: var(--text-light); margin-bottom: 8px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 10px; }
+    .qty-btn { width: 26px; height: 26px; border-radius: 50%; background: var(--rose-light); color: var(--rose-deep); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .qty-num { font-weight: 600; font-size: 0.9rem; }
+    .cart-item-remove { color: var(--text-light); font-size: 0.85rem; cursor: pointer; transition: color 0.2s; margin-left: auto; align-self: flex-start; padding-top: 2px; }
+    .cart-item-remove:hover { color: #e53e3e; }
+    .cart-footer { padding: 20px 28px; border-top: 1px solid var(--rose-light); }
+    .cart-total { display: flex; justify-content: space-between; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+    .btn-checkout {
+      width: 100%; background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: white; padding: 14px; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-checkout:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ===== ADD TO CART MODAL ===== */
+    .quick-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 4000; display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      touch-action: none;
+    }
+    .quick-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .quick-modal {
+      background: white; border-radius: 28px 28px 0 0;
+      width: 100%; max-width: 540px;
+      max-height: 92vh;
+      display: flex; flex-direction: column;
+      transform: translateY(100%); transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .quick-modal-overlay.open .quick-modal { transform: translateY(0); }
+    .quick-modal-scroll {
+      overflow-y: auto; overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch; touch-action: pan-y;
+      padding: 28px 28px 8px;
+      flex: 1;
+    }
+    .quick-modal-footer {
+      padding: 16px 28px 28px; background: white;
+      border-top: 1px solid var(--rose-light);
+      display: flex; gap: 12px; flex-shrink: 0;
+    }
+    .quick-modal h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 6px; }
+    .quick-modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 16px; margin-bottom: 20px; }
+    .quick-modal-sub { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 24px; }
+
+    /* ===== TOAST ===== */
+    .toast-container { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast {
+      background: var(--text-dark); color: white;
+      padding: 14px 20px; border-radius: 14px;
+      font-size: 0.88rem; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.5s forwards;
+      max-width: 300px;
+    }
+    .toast i { color: var(--rose); font-size: 1rem; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(10px); } }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 70px 24px; }
+      #home { padding: 90px 24px 60px; }
+      .hero-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .hero-btns { justify-content: center; }
+      .hero-image-wrap { order: -1; }
+      .hero-image-blob { width: 280px; height: 280px; }
+      .hero-image-blob img { width: 230px; height: 230px; }
+      .hero-float-badge { display: none; }
+      .about-wrap { grid-template-columns: 1fr; }
+      .about-img-wrap { text-align: center; display: flex; justify-content: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+      .booking-card { padding: 28px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .booking-channels { grid-template-columns: 1fr; }
+      .builder-body { padding: 24px 20px; }
+      .shape-grid { grid-template-columns: repeat(3, 1fr); }
+      .option-grid { grid-template-columns: repeat(2, 1fr); }
+      .topping-grid { grid-template-columns: repeat(3, 1fr); }
+      .dimension-sliders { grid-template-columns: 1fr; }
+      .make-cake-banner { flex-direction: column; text-align: center; align-items: center; padding: 32px 24px; }
+      .make-cake-pills { justify-content: center; }
+      .btn-make-cake { width: 100%; justify-content: center; }
+      .booking-steps { flex-direction: column; border-radius: 16px; }
+      .booking-step { border-right: none; border-bottom: 1px solid var(--rose-light); }
+      .booking-step:last-child { border-bottom: none; }
+    }
+    @media (max-width: 600px) {
+      .cakes-grid { grid-template-columns: 1fr; }
+      .shape-grid { grid-template-columns: repeat(2, 1fr); }
+      .cart-sidebar { width: 100%; right: -100%; }
+    }
+
+    /* Mobile nav menu */
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: white; padding: 20px 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1); z-index: 999;
+      flex-direction: column; gap: 16px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-weight: 600; color: var(--text-mid); padding: 8px 0; border-bottom: 1px solid var(--blush); }
+  </style>
+</head>
+<body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="Rose Bakes" class="nav-logo-img" onerror="this.style.display='none'" />
+    <div>
+      <div class="nav-logo-text">Rose Bakes</div>
+      <div class="nav-logo-sub">Homemade with Love</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#cakes">Our Cakes</a></li>
+    <li><a href="#make-cake">Make Your Own</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#enquiry">Enquiry</a></li>
+  </ul>
+  <button class="nav-cart" onclick="openCart()">
+    <i class="fas fa-shopping-basket"></i> Cart
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+  <div class="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMobileMenu()">Home</a>
+  <a href="#cakes" onclick="closeMobileMenu()">Our Cakes</a>
+  <a href="#make-cake" onclick="closeMobileMenu()">Make Your Own</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#enquiry" onclick="closeMobileMenu()">Enquiry</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">🌹 Handcrafted With Love</div>
+      <h1 class="hero-title">
+        Every Cake Tells<br/>a <em>Sweet Story</em> 🎂
+      </h1>
+      <p class="hero-desc">
+        Freshly baked, beautifully decorated homemade cakes for every occasion — birthdays, anniversaries, or just because. Made with the finest ingredients and lots of love by Smila Manoj.
+      </p>
+      <div class="hero-btns">
+        <a href="#cakes" class="btn-primary"><i class="fas fa-birthday-cake"></i> Explore Cakes</a>
+        <button class="btn-secondary" onclick="openBuilderModal()"><i class="fas fa-magic"></i> Make Your Own</button>
+      </div>
+    </div>
+    <div class="hero-image-wrap">
+      <div class="hero-image-blob">
+        <img src="hero-cake.jpg" alt="Beautiful Rose Bakes cake" onerror="this.src='https://images.unsplash.com/photo-1562440499-64c9a111f713?w=400&h=400&fit=crop'" />
+      </div>
+      <div class="hero-float-badge top-right">
+        <div class="float-icon">🎂</div>
+        <div>
+          <div class="float-label">100+ Designs</div>
+          <div class="float-sub">Custom made</div>
+        </div>
+      </div>
+      <div class="hero-float-badge bottom-left">
+        <div class="float-icon">⭐</div>
+        <div>
+          <div class="float-label">5-Star Rated</div>
+          <div class="float-sub">Happy customers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR CAKES -->
+<section id="cakes">
+  <div class="section-header">
+    <div class="section-tag">Our Menu</div>
+    <h2 class="section-title">Cakes Made With Passion 🌸</h2>
+    <p class="section-sub">Each cake is handcrafted to perfection using the finest ingredients. Choose your favourite or let us create something magical for you.</p>
+  </div>
+  <div class="cakes-grid" id="cakesGrid">
+    <!-- Dynamic cakes loaded here -->
+    <div style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:40px;">
+      <i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:14px;display:block;color:var(--rose);"></i>
+      Loading cakes...
+    </div>
+  </div>
+</section>
+
+<!-- MAKE YOUR OWN CAKE BANNER -->
+<section id="make-cake" style="padding:60px 24px;">
+  <div class="make-cake-banner">
+    <div class="make-cake-text">
+      <h2>🎨 Make Your Own Dream Cake!</h2>
+      <p>Be the cake artist! Choose your shape, flavour, frosting, and toppings. Design the cake of your dreams — it's like a game and totally delicious!</p>
+      <div class="make-cake-pills">
+        <span class="pill">🎮 Fun & Interactive</span>
+        <span class="pill">👶 Kids Love It</span>
+        <span class="pill">🎂 Custom Shapes</span>
+        <span class="pill">✏️ Draw Your Shape</span>
+      </div>
+    </div>
+    <button class="btn-make-cake" onclick="openBuilderModal()">
+      <span>🎂</span> Start Creating!
+    </button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-img-wrap">
+      <div class="about-img-frame">
+        <img src="smila.jpg" alt="Smila Manoj" onerror="this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=500&fit=crop'" />
+      </div>
+
+    </div>
+    <div class="about-text">
+      <div class="section-tag" style="margin-bottom:16px;">Meet the Baker</div>
+      <h2>Hi, I'm <em>Smila Manoj</em> 🌸</h2>
+      <p>
+        Welcome to Rose Bakes! I'm Smila — a passionate home baker who believes every celebration deserves a cake made with real love. What started as a hobby quickly grew into my greatest passion.
+      </p>
+      <p>
+        Every cake I bake is crafted with the freshest ingredients, thoughtful design, and a whole lot of heart. Whether it's a birthday, anniversary, or any special occasion, I make sure each cake is unique and unforgettable.
+      </p>
+      <p>
+        I'm based locally and love connecting with every customer personally to create their dream cake. Let's make your next celebration extra sweet! 🎂
+      </p>
+      <div class="about-signature">— Smila Manoj</div>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRY -->
+<section id="enquiry">
+  <div class="section-header">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Have a Question? 💌</h2>
+    <p class="section-sub">Send us a message and we'll get back to you as soon as possible!</p>
+  </div>
+  <div class="enquiry-wrap">
+    <div class="enquiry-card">
+      <div id="enquiryAlert" class="alert"></div>
+      <form id="enquiryForm" onsubmit="submitEnquiry(event)">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+        <input type="hidden" name="subject" value="Rose Bakes — New Enquiry" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-input" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone (optional)</label>
+          <input type="tel" name="phone" class="form-input" placeholder="+91 XXXXXXXXXX" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea name="message" class="form-input" rows="5" placeholder="Tell us about your cake idea or question…" required style="resize:vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">Rose Bakes 🌹</div>
+      <p class="footer-desc">Homemade cakes crafted with love and the finest ingredients. Every occasion deserves a beautiful, delicious cake made just for you.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/919496754460" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/rose_bakes_" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:smilamanoj15@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#cakes">Our Cakes</a></li>
+        <li><a href="#make-cake">Make Your Own</a></li>
+        <li><a href="#booking">Book a Cake</a></li>
+        <li><a href="#about">About Smila</a></li>
+        <li><a href="#enquiry">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact Us</div>
+      <div class="footer-contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+91 94967 54460</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>smilamanoj15@gmail.com</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fab fa-instagram"></i>
+        <span>@rose_bakes_</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fab fa-whatsapp"></i>
+        <span>+91 94967 54460</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Rose Bakes by Smila Manoj. All rights reserved.</span>
+    <span>Made with 🌹 & Love</span>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-header-top">
+      <h3>🛒 Your Basket</h3>
+      <button class="cart-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <i class="fas fa-shopping-basket"></i>
+      <p style="font-size:0.95rem;">Your basket is empty</p>
+      <p style="font-size:0.82rem;margin-top:6px;">Add some delicious cakes!</p>
+      <button class="cart-back-home" style="margin-top:20px;" onclick="closeCart(); window.scrollTo({top:0,behavior:'smooth'});">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </button>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">₹0</span>
+    </div>
+    <button class="btn-checkout" onclick="checkoutViaWhatsApp()">
+      <i class="fab fa-whatsapp"></i> Order via WhatsApp
+    </button>
+    <button class="btn-checkout" style="margin-top:10px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 4px 16px rgba(220,39,67,0.35);" onclick="checkoutViaInstagram()">
+      <i class="fab fa-instagram"></i> Order via Instagram
+    </button>
+  </div>
+</div>
+
+<!-- QUICK ADD TO CART MODAL -->
+<div class="quick-modal-overlay" id="quickModalOverlay" onclick="handleQuickModalOverlayClick(event)">
+  <div class="quick-modal" id="quickModal">
+    <div class="quick-modal-scroll">
+      <img src="" alt="" class="quick-modal-img" id="quickModalImg" />
+      <h3 id="quickModalName">Cake Name</h3>
+      <p class="quick-modal-sub" id="quickModalDesc">Description</p>
+      <div class="form-group">
+        <label class="form-label">Weight</label>
+        <div class="weight-selector">
+          <button class="weight-btn" onclick="changeQuickWeight(-1)">−</button>
+          <div class="weight-display" id="quickWeightDisplay">1 kg</div>
+          <button class="weight-btn" onclick="changeQuickWeight(1)">+</button>
+        </div>
+        <div class="weight-chips" style="margin-top:12px;" id="quickWeightChips"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">✍️ Writing on Cake <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+        <input type="text" class="form-input cake-writing-input" id="quickWriting" placeholder="e.g. Happy Birthday! 🎂" maxlength="60" />
+      </div>
+    </div>
+    <div class="quick-modal-footer">
+      <button style="flex:1;padding:14px;border-radius:50px;border:2px solid var(--rose-light);background:white;color:var(--text-mid);font-family:inherit;font-size:0.95rem;font-weight:600;cursor:pointer;" onclick="closeQuickModal()">Cancel</button>
+      <button style="flex:2;padding:14px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px rgba(224,122,150,0.35);" onclick="confirmAddToCart()">
+        <i class="fas fa-shopping-basket"></i> Add to Basket
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== GLOBAL STATE =====
+let cart = [];
+let currentQuickCake = null;
+let quickWeightIndex = 1;
+let bookWeightIndex = 1;
+const WEIGHTS = ['500g', '1 kg', '1.5 kg', '2 kg', '2.5 kg', '3 kg', '3.5 kg', '4 kg', '4.5 kg', '5 kg'];
+const WEIGHT_VALS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+
+// Placeholder — new cake builder coming soon
+function openBuilderModal() { showToast('🎂 Cake builder coming soon!'); }
+function closeBuilderModal() {}
+
+// ===== MOBILE MENU =====
+function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ===== WEIGHT CHIPS =====
+function buildWeightChips(containerId, currentIdx, onClickFn) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  c.innerHTML = '';
+  WEIGHTS.forEach((w, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'weight-chip' + (i === currentIdx ? ' active' : '');
+    chip.textContent = w;
+    chip.onclick = () => { currentIdx = i; onClickFn(i); buildWeightChips(containerId, i, onClickFn); };
+    c.appendChild(chip);
+  });
+}
+
+// ===== QUICK CART WEIGHTS =====
+buildWeightChips('quickWeightChips', quickWeightIndex, (i) => {
+  quickWeightIndex = i;
+  document.getElementById('quickWeightDisplay').textContent = WEIGHTS[i];
+});
+function changeQuickWeight(dir) {
+  quickWeightIndex = Math.max(0, Math.min(WEIGHTS.length - 1, quickWeightIndex + dir));
+  document.getElementById('quickWeightDisplay').textContent = WEIGHTS[quickWeightIndex];
+  buildWeightChips('quickWeightChips', quickWeightIndex, (i) => {
+    quickWeightIndex = i;
+    document.getElementById('quickWeightDisplay').textContent = WEIGHTS[i];
+  });
+}
+
+// ===== CART =====
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartSidebar').classList.add('open');
+  document.body.classList.add('no-scroll');
+  renderCart();
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+function updateCartBadge() {
+  const badge = document.getElementById('cartBadge');
+  const total = cart.reduce((s, i) => s + i.qty, 0);
+  badge.textContent = total;
+  badge.style.display = total > 0 ? 'flex' : 'none';
+}
+
+function renderCart() {
+  const container = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if (cart.length === 0) {
+    container.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-basket"></i><p style="font-size:0.95rem;">Your basket is empty</p><p style="font-size:0.82rem;margin-top:6px;">Add some delicious cakes!</p><button class="cart-back-home" style="margin-top:20px;" onclick="closeCart(); window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-left"></i> Back to Home</button></div>`;
+    footer.style.display = 'none';
+    return;
+  }
+  container.innerHTML = '';
+  cart.forEach((item, idx) => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'cart-item';
+    itemEl.innerHTML = `
+      <img src="${item.image || ''}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1562440499-64c9a111f713?w=80&h=80&fit=crop'" />
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-detail">${item.weight}${item.writing ? ` • ✍️ "${item.writing}"` : ''}${item.isCustom ? `<br><span style="font-size:0.75rem;color:var(--text-light);">${item.customDetails}</span>` : ''}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeCartQty(${idx},-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeCartQty(${idx},1)">+</button>
+        </div>
+      </div>
+      <span class="cart-item-remove" onclick="removeCartItem(${idx})"><i class="fas fa-trash"></i></span>
+    `;
+    container.appendChild(itemEl);
+  });
+  footer.style.display = 'block';
+  document.getElementById('cartTotal').textContent = `${cart.length} item${cart.length > 1 ? 's' : ''}`;
+}
+
+function changeCartQty(idx, dir) {
+  cart[idx].qty = Math.max(1, cart[idx].qty + dir);
+  updateCartBadge();
+  renderCart();
+}
+function removeCartItem(idx) {
+  cart.splice(idx, 1);
+  updateCartBadge();
+  renderCart();
+}
+
+// ===== CLIPBOARD =====
+function copyToClipboard(text) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    ta.style.top = '0'; ta.style.left = '0';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  } catch(e) {}
+}
+
+// ===== CHECKOUT =====
+function checkoutViaWhatsApp() {
+  let msg = `🌹 *Rose Bakes — Basket Order*\n\n`;
+  cart.forEach((item, i) => {
+    msg += `${i+1}. 🎂 *${item.name}* x${item.qty}\n`;
+    msg += `   ⚖️ ${item.weight}`;
+    if (item.writing) msg += ` | ✍️ "${item.writing}"`;
+    msg += '\n';
+    if (item.isCustom) msg += `   🎨 Custom: ${item.customDetails}\n`;
+    msg += '\n';
+  });
+  msg += `Please confirm my order! Thank you 😊`;
+  window.open(`https://wa.me/919496754460?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function checkoutViaInstagram() {
+  let msg = `🌹 Rose Bakes — Basket Order\n\n`;
+  cart.forEach((item, i) => {
+    msg += `${i+1}. 🎂 ${item.name} x${item.qty}\n`;
+    msg += `   ⚖️ ${item.weight}`;
+    if (item.writing) msg += ` | ✍️ "${item.writing}"`;
+    msg += '\n';
+    if (item.isCustom) msg += `   🎨 Custom: ${item.customDetails}\n`;
+    msg += '\n';
+  });
+  msg += `Please confirm my order! Thank you 😊`;
+  copyToClipboard(msg);
+  showToast('📋 Order details copied! Paste them in the DM.');
+  setTimeout(() => window.open('https://ig.me/m/rose_bakes_', '_blank'), 800);
+}
+
+// ===== QUICK ADD MODAL =====
+function openQuickModal(cake) {
+  currentQuickCake = cake;
+  quickWeightIndex = 1;
+  document.getElementById('quickModalImg').src = cake.image || '';
+  document.getElementById('quickModalName').textContent = cake.name;
+  document.getElementById('quickModalDesc').textContent = cake.description || '';
+  document.getElementById('quickWeightDisplay').textContent = WEIGHTS[quickWeightIndex];
+  document.getElementById('quickWriting').value = '';
+  buildWeightChips('quickWeightChips', quickWeightIndex, (i) => {
+    quickWeightIndex = i;
+    document.getElementById('quickWeightDisplay').textContent = WEIGHTS[i];
+  });
+  document.getElementById('quickModalOverlay').classList.add('open');
+  document.body.classList.add('no-scroll');
+}
+function handleQuickModalOverlayClick(e) {
+  if (e.target === document.getElementById('quickModalOverlay')) closeQuickModal();
+}
+
+function closeQuickModal() {
+  document.getElementById('quickModalOverlay').classList.remove('open');
+  document.body.classList.remove('no-scroll');
+  currentQuickCake = null;
+}
+function confirmAddToCart() {
+  if (!currentQuickCake) return;
+  const item = {
+    name: currentQuickCake.name,
+    image: currentQuickCake.image,
+    weight: WEIGHTS[quickWeightIndex],
+    writing: document.getElementById('quickWriting').value,
+    qty: 1,
+    isCustom: false
+  };
+  cart.push(item);
+  updateCartBadge();
+  closeQuickModal();
+  showToast(`🎂 ${item.name} added to basket!`);
+}
+
+// ===== BOOKING (Instagram) =====
+function bookViaInstagram() {
+  const msg = buildWhatsAppMessage();
+  copyToClipboard(msg);
+  showToast('📋 Order details copied! Paste them in the DM.');
+  setTimeout(() => window.open('https://ig.me/m/rose_bakes_', '_blank'), 800);
+}
+function buildWhatsAppMessage() {
+  return `🌹 *Rose Bakes Order Request*\n\nPlease confirm my order! Thank you 😊`;
+}
+
+// ===== CAKES FROM CMS =====
+async function loadCakes() {
+  const grid = document.getElementById('cakesGrid');
+  const select = document.getElementById('bookCakeType');
+  try {
+    const res = await fetch('/cakes.json');
+    if (res.ok) {
+      const cakes = await res.json();
+      renderCakeCards(cakes, grid, select);
+      return;
+    }
+  } catch(e) {}
+  const sampleCakes = [
+    { name: 'Classic Vanilla Dream', category: 'Classic', description: 'Light, fluffy vanilla sponge with fresh cream and a sprinkle of love.', image: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&h=300&fit=crop', price: '₹550/kg' },
+  ];
+  renderCakeCards(sampleCakes, grid, select);
+}
+
+function renderCakeCards(cakes, grid, select) {
+  grid.innerHTML = '';
+  if (select) { select.innerHTML = '<option value="">Select a cake type…</option>'; }
+  cakes.forEach(cake => {
+    const card = document.createElement('div');
+    card.className = 'cake-card';
+    card.innerHTML = `
+      <div class="cake-img-wrap">
+        <img src="${cake.image || ''}" alt="${cake.name}" onerror="this.src='https://images.unsplash.com/photo-1562440499-64c9a111f713?w=400&h=300&fit=crop'" />
+        ${cake.category ? `<span class="cake-tag">${cake.category}</span>` : ''}
+      </div>
+      <div class="cake-info">
+        <div class="cake-name">${cake.name}</div>
+        <div class="cake-desc">${cake.description || ''}</div>
+        ${cake.price ? `<div class="cake-price">${cake.price} <span>/ per kg</span></div>` : ''}
+        <button class="btn-add-cart" onclick='openQuickModal(${JSON.stringify(cake)})'>
+          <i class="fas fa-shopping-basket"></i> Add to Basket
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+    if (select) {
+      const opt = document.createElement('option');
+      opt.value = cake.name; opt.textContent = cake.name;
+      select.appendChild(opt);
+    }
+  });
+}
+
+loadCakes();
+
+// ===== ENQUIRY =====
+async function submitEnquiry(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const alertEl = document.getElementById('enquiryAlert');
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  const data = new FormData(document.getElementById('enquiryForm'));
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+    const json = await res.json();
+    if (json.success) {
+      alertEl.className = 'alert success';
+      alertEl.textContent = '✅ Message sent! We\'ll get back to you soon. Thank you! 🌹';
+      document.getElementById('enquiryForm').reset();
+    } else throw new Error();
+  } catch(err) {
+    alertEl.className = 'alert error';
+    alertEl.textContent = '❌ Oops! Something went wrong. Please try WhatsApp or Instagram instead.';
+  }
+  btn.textContent = 'Send Message'; btn.disabled = false;
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<i class="fas fa-check-circle"></i>${msg}`;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// ===== FIX BUTTON ACTIVE STATE ON MOBILE =====
+document.addEventListener('touchend', function(e) {
+  if (e.target.closest('button')) {
+    e.target.closest('button').blur();
+  }
+}, { passive: true });
+function preventBgScroll(e) {
+  let el = e.target;
+  while (el && el !== document.body) {
+    const oy = window.getComputedStyle(el).overflowY;
+    if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) return;
+    el = el.parentElement;
+  }
+  e.preventDefault();
+}
+function attachScrollLock(id) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('touchmove', preventBgScroll, { passive: false });
+}
+attachScrollLock('cartOverlay');
+attachScrollLock('cartSidebar');
+attachScrollLock('quickModalOverlay');
+
+</script>
+
+</body>
+</html>

@@ -637,11 +637,25 @@
     .mobile-menu.open { display: flex; }
     .mobile-menu a { font-weight: 600; color: var(--text-mid); padding: 8px 0; border-bottom: 1px solid var(--blush); }
   </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
+
+<script>
+  // Redirect to admin after Netlify Identity invite/login
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', user => {
+      if (!user) {
+        window.netlifyIdentity.on('login', () => {
+          document.location.href = '/admin/';
+        });
+      }
+    });
+  }
+</script>
 
 <!-- NAVBAR -->
 <nav>

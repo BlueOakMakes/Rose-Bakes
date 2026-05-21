@@ -1,0 +1,119 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Enable Netlify Identity
+identity_url: "/.netlify/identity"
+gateway_url: "/.netlify/git/github"
+squash_merges: true
+
+collections:
+  - name: "cakes"
+    label: "🎂 Cakes"
+    label_singular: "Cake"
+    folder: "_cakes"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: "Cake Name"
+        name: "name"
+        widget: "string"
+        hint: "e.g. Classic Vanilla Dream"
+      - label: "Category / Tag"
+        name: "category"
+        widget: "select"
+        options:
+          - "Classic"
+          - "Chocolate"
+          - "Fruit"
+          - "Special"
+          - "Wedding"
+          - "Kids"
+          - "Custom"
+        default: "Classic"
+      - label: "Short Description"
+        name: "description"
+        widget: "text"
+        hint: "A short, appetising description of this cake."
+      - label: "Cake Image"
+        name: "image"
+        widget: "image"
+        allow_multiple: false
+        hint: "Upload a high-quality photo of the cake."
+      - label: "Price (e.g. ₹550/kg)"
+        name: "price"
+        widget: "string"
+        hint: "e.g. ₹550/kg — this will be shown on the website."
+        required: false
+      - label: "Available Flavours"
+        name: "flavours"
+        widget: "list"
+        default: ["Vanilla", "Chocolate", "Pineapple"]
+        hint: "List all available flavours for this cake type."
+        required: false
+      - label: "Minimum Weight"
+        name: "minWeight"
+        widget: "select"
+        options: ["500g", "1 kg", "1.5 kg", "2 kg"]
+        default: "500g"
+        required: false
+      - label: "Is Featured?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Show this cake prominently on the homepage."
+      - label: "Available"
+        name: "available"
+        widget: "boolean"
+        default: true
+        hint: "Uncheck to temporarily hide this cake from the website."
+      - label: "Extra Notes"
+        name: "notes"
+        widget: "text"
+        required: false
+        hint: "Any allergen info, customisation notes, etc."
+
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "_data/settings.json"
+        fields:
+          - label: "Site Tagline"
+            name: "tagline"
+            widget: "string"
+            default: "Homemade with Love"
+          - label: "WhatsApp Number"
+            name: "whatsapp"
+            widget: "string"
+            default: "+919496754460"
+          - label: "Instagram Handle"
+            name: "instagram"
+            widget: "string"
+            default: "rose_bakes_"
+          - label: "Email"
+            name: "email"
+            widget: "string"
+            default: "smilamanoj15@gmail.com"
+          - label: "About Text"
+            name: "about"
+            widget: "text"
+            default: "Hi, I'm Smila Manoj — a passionate home baker who believes every celebration deserves a cake made with real love."
+          - label: "Hero Image"
+            name: "heroImage"
+            widget: "image"
+            required: false
+          - label: "Baker Photo"
+            name: "bakerPhoto"
+            widget: "image"
+            required: false
+          - label: "Logo"
+            name: "logo"
+            widget: "image"
+            required: false
